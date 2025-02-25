@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mywork.mapper.SupplierMapper">
+    <select id="getSupplier" resultType="com.mywork.dto.Supplier">
+        select * from supplier where id = #{s_id}
+    </select>
+
+    <select id="getSupplierId" resultType="String">
+        select id from supplier where name = #{name}
+    </select>
+
+    <select id="getSupplierCount" resultType="int">
+        select COUNT(*) from u_s where u_id=#{u_id}
+    </select>
+
+    <insert id="addSupplier">
+        insert into supplier (name,supplier,address) values (#{param1},#{param2},#{param3})
+    </insert>
+
+    <insert id="addUserSupplier">
+        insert into u_s (u_id,s_id) values (#{param1},#{param2})
+    </insert>
+
+    <update id="updateSupplier">
+        update supplier set supplier = #{param2},address=#{param3} where name = #{param1}
+    </update>
+
+    <delete id="deleteSupplier">
+        delete from supplier where id = #{id}
+    </delete>
+
+    <delete id="deleteUserSupplier">
+        delete from u_s where s_id = #{id}
+    </delete>
+</mapper>

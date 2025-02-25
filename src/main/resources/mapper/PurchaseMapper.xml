@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mywork.mapper.PurchaseMapper">
+    <select id="getPurchase" resultType="com.mywork.dto.Purchase">
+        select * from purchase where id = #{p_id}
+    </select>
+
+    <select id="getPurchaseId" resultType="String">
+        select id from purchase where s_name = #{param1} and f_name = #{param2}
+    </select>
+
+    <select id="getPurchaseCount" resultType="int">
+        select COUNT(*) from u_p where u_id=#{u_id}
+    </select>
+
+    <insert id="addPurchase">
+        insert into purchase (s_name,f_name,number,price) values (#{param1},#{param2},#{param3},#{param4})
+    </insert>
+
+    <insert id="addUserPurchase">
+        insert into u_p (u_id,p_id) values (#{param1},#{param2})
+    </insert>
+
+    <update id="updatePurchase">
+        update purchase set number = #{param3},price=#{param4} where s_name = #{param1} and f_name = #{param2}
+    </update>
+
+    <delete id="deletePurchase">
+        delete from purchase where id = #{id}
+    </delete>
+
+    <delete id="deleteUserPurchase">
+        delete from u_p where p_id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>食材信息管理系统</title>
+    <link rel="stylesheet" th:href="@{/css/first.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css}"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <a th:href="@{/index}" style="background-color: #4CAF50" onclick="loadContent('first')">首页</a>
+        <a th:href="@{/inventory}" onclick="loadContent('inventory')">库存管理</a>
+        <a th:href="@{/purchase}" onclick="loadContent('purchase')">采购管理</a>
+        <a th:href="@{/supplier}" onclick="loadContent('suppliers')">供应商管理</a>
+        <a th:href="@{/order}" onclick="loadContent('order')">订单管理</a>
+    </div>
+
+    <div class="main" id="main-content">
+        <div class="user-info">
+            <span>欢迎, <span id="username">用户名</span></span>
+            <span>您的余额为：<span id="balance">余额</span></span>
+            <a th:href="@{/logout}">注销</a>
+        </div>
+        <h1>食材信息管理系统</h1>
+        <p>这里是系统的主要工作区域。你可以在这里对食材的库存、订单、供应商尽心管理。</p>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 发送GET请求到/user
+        fetch('/ims/user')
+            .then(response => {
+                // 确保响应状态是OK的
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 解析JSON数据
+                return response.json();
+            })
+            .then(data => {
+                // 更新DOM中的用户名和余额
+                document.getElementById('username').textContent = data.data.username;
+                document.getElementById('balance').textContent = data.data.balance;
+            })
+            .catch(error => {
+                // 处理任何在请求过程中发生的错误
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+    });
+</script>
+</body>
+</html>
